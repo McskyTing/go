@@ -27,13 +27,12 @@ func init() {
 		elastic.SetErrorLog(log.New(os.Stderr, "ELASTIC ", log.LstdFlags)),
 		elastic.SetInfoLog(log.New(os.Stdout, "", log.LstdFlags)))
 
-	if err!= nil{
+	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("conn es succ",client)
+	fmt.Println("conn es succ", client)
 }
-
 
 func TermQuery(index, type_, fieldName, fieldValue string) *elastic.SearchResult {
 	query := elastic.NewTermQuery(fieldName, fieldValue)
@@ -104,7 +103,7 @@ func getNetEase() {
 		panic(err)
 	}
 	if dataArr.Code == 0 && dataArr.Message == "success" {
-		news := make([] models.TmpNewsCrawalContent, len(dataArr.Data))
+		news := make([]models.TmpNewsCrawalContent, len(dataArr.Data))
 		for i, datum := range dataArr.Data {
 			news[i].NewsId = GetNewsId(datum.InfoId, thirdSource)
 			news[i].ThirdSource = thirdSource
@@ -132,7 +131,7 @@ func getNetEase() {
 				news[i].MiniImgSize = 0
 			} else if len(datum.Covers) > 1 {
 				news[i].BigPic = 0
-				covers := make([] map[string]string, len(datum.Covers))
+				covers := make([]map[string]string, len(datum.Covers))
 				for j, pic := range datum.Covers {
 					covers[j] = map[string]string{"src": pic}
 				}
